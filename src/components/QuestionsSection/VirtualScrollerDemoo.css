@@ -1,0 +1,11 @@
+.virtualscroller-demoo .p-virtualscroller {
+  height: 600px;
+  width: 100%;
+  
+   /* border-bottom: 1px solid var(--surface-d);  */
+}
+
+.virtualscroller-demoo .p-horizontal-scroll .p-virtualscroller-content {
+  display: flex;
+  flex-direction: column;
+}
