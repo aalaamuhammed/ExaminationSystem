@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { VirtualScroller } from 'primereact/virtualscroller';
 import CourseTile from './CourseTile';
 import './VirtualScrollerDemo.css';
 import { Button } from 'primereact/button';
+import axios from 'axios';
 
 const VirtualScrollerDemo = ({onClick}) => {
   const basicItems = Array.from({ length: 100000 }).map((_, i) => `Item #${i}`);
@@ -12,6 +13,18 @@ const VirtualScrollerDemo = ({onClick}) => {
     { title: 'Js' },
     
   ])
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(
+        'http://127.0.0.1:8080/courses/list',
+      );
+      const json = await res.json();
+      console.log(json);
+    };
+    fetchData();
+  });
+
+
   const courseTemplate = (item, options) => {
     return <CourseTile title={item.title} key={1} />;
   }

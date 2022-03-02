@@ -16,11 +16,7 @@ const VirtualScrollerDemo = () => {
   const questions = [{
     content: 'Q - Which of the following property is used as shorthand to specify a number of other font properties?',
     choices: [{ id: 1, content: 'font-size' }, { id: 2, content: 'font' }, { id: 3, content: 'font-variant' }, { id: 5, content: 'font-weight' }],
-   
-    mark: 2,
     type: 'selectOne',
-    studentAnswer: [],
-    correctAnswer: ['1', '2']
   },
   {
     content: 'Q - Which of the following property is used as shorthand to specify a number of other font properties?',
