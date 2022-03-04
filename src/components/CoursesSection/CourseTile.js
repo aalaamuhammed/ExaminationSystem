@@ -1,8 +1,8 @@
 
 import React,{useState} from 'react';
-const Course = ({title,key1}) => {
+const Course = ({title,id, setCourseId,}) => {
     return (
-      <div key={key1} className="courseTile">
+      <div key={id} className="courseTile" onClick={()=>setCourseId(id)}>
         {title}
       </div>
     );

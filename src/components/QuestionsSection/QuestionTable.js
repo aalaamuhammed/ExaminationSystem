@@ -24,23 +24,35 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { VirtualScroller } from 'primereact/virtualscroller';
 import QuestionTile from './QuestionTile';
 import './VirtualScrollerDemoo.css';
 import { Button } from 'primereact/button';
+import axiosInstance from '../../adapters/axiosConfig';
+const VirtualScrollerDemo = ({onClick,courseId}) => {
+  
+  const [questions, setQuestions] = useState([])
 
-const VirtualScrollerDemo = ({onClick}) => {
-  const basicItems = Array.from({ length: 100000 }).map((_, i) => `Item #${i}`);
-  console.log(basicItems);
-  const [courses, setCourses] = useState([
-    { title: 'Css' },
-    { title: 'HTML' },
-    { title: 'Js' },
-    
-  ])
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axiosInstance.get(`/questions/courseQuestions/${courseId}`)
+      if (res.status===200) {
+        const mapped =res.data.data.map((q,i)=> {return{
+          content:q?.Body,
+          choices: q?.Choices,
+          mark:q?.Degree,
+          correctAnswer:q?.Correct_Answer,
+          index:i
+        }})
+        console.log({courseId,mapped});
+        setQuestions(mapped)
+      }   
+    };
+    fetchData();
+  },[courseId]);
   const questionTemplate = (item, options) => {
-    return <QuestionTile title={item.title} key={1} />;
+    return <QuestionTile question={item} key={1} />;
   }
 
   return (
@@ -49,9 +61,9 @@ const VirtualScrollerDemo = ({onClick}) => {
        <div className='wrapper'>
        <div className='sectionHeader'>
          <h3>Questions</h3>
-         <Button icon="pi pi-plus" style={{backgroundColor:'var(--blue-500)'}} label='Add Course' onClick={() => onClick('displayBasic')} />
+         <Button icon="pi pi-plus" style={{backgroundColor:'var(--blue-500)'}} label='Add Question' onClick={() => onClick('q')} />
          </div>
-        <VirtualScroller items={courses} itemSize={250} itemTemplate={questionTemplate} orientation="virtical" />
+        <VirtualScroller items={questions} itemSize={250} itemTemplate={questionTemplate} orientation="virtical" />
       </div>
     </div>
   )
