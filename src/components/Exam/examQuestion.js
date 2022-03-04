@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RadioButton } from 'primereact/radiobutton';
 
 const ExamQuestion = ({ question, index, onselect }) => {
+  const [checkedId, setChecked]= useState();
+  const onChange=(e)=>{
+    onselect(e,index)
+    setChecked(e.value.id)
+  }
   return (
   <div className="questionTile" key={`${index+10}`}>
     <div className='circularDiv'>Q1</div>
@@ -12,8 +17,8 @@ const ExamQuestion = ({ question, index, onselect }) => {
           question.choices
             .map((c) => {
               return (
-                <div key={c.id} className="field-radiobutton">
-                  <RadioButton inputId={c.id} name="c" value={c} onChange={(e)=>onselect(e,index)} disabled={c.id === 'R'} />
+                <div key={c.id} style={{margin:'5px 0px'}} className="field-radiobutton">
+                  <RadioButton inputId={c.id} name={`${index+12}`}  checked={checkedId===c.id} value={c} onChange={(e)=>onChange(e)} disabled={c.id === 'R'} />
                   <label htmlFor={c.id}>{c.content}</label>
                 </div>
               )

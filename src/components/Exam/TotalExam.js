@@ -53,10 +53,13 @@ const VirtualScrollerDemo = () => {
     setStudentAnswer(prepareArray)
 
   }
+  const summit=()=>{
+      console.log(studentAnswer)
+  }
 
   return (
 
-    <div className="virtualscroller-demo1">
+    
       <div className='wrapper'>
         <div className='sectionHeader'>
           <h3>Exam</h3>
@@ -67,9 +70,11 @@ const VirtualScrollerDemo = () => {
         }
        
         {/*  */}
-        <Button onClick={()=>console.log(studentAnswer)}/>
+        <div style={{ textAlign:'center'}}>
+        <Button style={{ backgroundColor: 'var(--blue-500)' }} label="Summit" onClick={()=>summit()}/>
+        </div>
       </div>
-    </div>
+  
   )
 }
 export default VirtualScrollerDemo
